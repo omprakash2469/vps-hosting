@@ -1,0 +1,16 @@
+1. Linux - Any Linux based operating system
+
+2. Apache server - Apache is an open-source webserver
+	- sudo apt update
+	- sudo apt install apache2
+	- sudo ufw allow in "Apache Full"
+	- sudo ufw status
+
+3. MySQL - MySQL database
+	- sudo apt install mysql-server
+	- sudo mysql
+	- exit
+
+4. PHP - PHP as a server-side programming language
+	- sudo apt install php libapache2-mod-php php-mysql
+	- php -v
