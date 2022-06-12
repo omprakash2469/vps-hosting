@@ -1,24 +1,66 @@
 1. Add 'A' Record in your DNS Management
 2. Point your domain to your vps server
 
-1 - Creating Directories for individual sites
+3. Download and enable wsgi
+	- sudo apt-get install libapache2-mod-wsgi-py3
+	- sudo a2enmod wsgi
+
+4. Create init.py
+	- sudo nano /var/www/yoursite.com/yoursite.com/__init__.py
+	- Put this code in __init__.py
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+	return "Hello, world!"
+
+5. Create .wsgi file in /var/www/yoursite/yoursite.wsgi
+	- sudo nano yoursitename.wsgi
+	- Enter this code in .wsgi file
+
+#!/usr/bin/python
+import sys 
+import logging 
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/yoursite/")
+
+from yoursite import app as application 
+application.secret_key = 'secret-key'
+
+4 - Creating Directories for sites
 	- sudo mkdir -p /var/www/yoursite.com/
+	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
+	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
 
-2 - Transfer the site contents
+5 - Transfer the site contents
 
-3 - Creating the VirtualHost files
-	-  sudo vim /etc/apache2/sites-available/yoursite.com.conf
-
-4 - Enter this content in .conf file
-<VirtualHost *:80>
-    ServerName yoursite.com
-    ServerAdmin yourPublicEmail@email.com
-    DocumentRoot /var/www/yoursite.com
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+6 - Creating the VirtualHost files
+	-  sudo vim /etc/apache2/sites-available/yoursite.conf
+	- Enter this into .conf file
+<VirtualHost *:80> 
+	ServerName yourdomainname
+	ServerAdmin admin@mywebsite.com 
+	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi 
+	<Directory /var/www/FlaskApp/FlaskApp/> 
+		Order allow,deny
+		 Allow from all 
+	</Directory> 
+	Alias /static /var/www/FlaskApp/FlaskApp/static 
+	<Directory /var/www/FlaskApp/FlaskApp/static/> 
+		Order allow,deny 
+		Allow from all 
+	</Directory> 
+	ErrorLog ${APACHE_LOG_DIR}/error.log 
+	LogLevel warn 
+	CustomLog ${APACHE_LOG_DIR}/access.log combined 
 </VirtualHost>
 
-4 - Enable the VirtualHosts
+	- replace flaskapp with your app name
+	- Enter ServerAlias www.yoursite.com if you have domain name
+
+
+8 - Enable the VirtualHosts
 	- cd /etc/apache2/sites-available/
-	- sudo a2ensite yoursite.com.conf
+	- sudo a2ensite soplaptops
 	- sudo service apache2 restart
