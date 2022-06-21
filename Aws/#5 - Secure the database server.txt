@@ -1,0 +1,62 @@
+Start the MariaDB server.
+	- sudo systemctl start mariadb
+
+Run mysql_secure_installation.
+	- sudo mysql_secure_installation
+
+When prompted, type a password for the root account.
+	- Type the current root password. By default, the root account does not have a password set. Press Enter.
+	- Type Y to set a password, and type a secure password twice. For more information about creating a secure password, see https://identitysafe.norton.com/password-generator/. Make sure to store this password in a safe place.
+	Setting a root password for MariaDB is only the most basic measure for securing your database. When you build or install a database-driven application, you typically create a database service user for that application and avoid using the root account for anything but database administration.
+
+Type Y to remove the anonymous user accounts.
+
+Type Y to disable the remote root login.
+
+Type Y to remove the test database.
+
+Type Y to reload the privilege tables and save your changes.
+
+---------------------
+INSTALL PHPMYADMIN
+---------------------
+
+Install the required dependencies.
+	- sudo yum install php-mbstring php-xml -y
+
+Restart Apache.
+	- sudo systemctl restart httpd
+
+Restart php-fpm
+	- sudo systemctl restart php-fpm
+
+Navigate to the Apache document root at /var/www/html.
+	- cd /var/www/html
+
+Select a source package for the latest phpMyAdmin release from https://www.phpmyadmin.net/downloads. To download the file directly to your instance, copy the link and paste it into a wget command, as in this example:
+	- wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+
+Create a phpMyAdmin folder and extract the package into it with the following command.[ replace the text in quote with latest module name and remove quotes]
+	- mkdir phpMyAdmin && tar -xvzf "phpMyAdmin-latest-all-languages.tar.gz" -C phpMyAdmin --strip-components 1
+
+Delete the phpMyAdmin-latest-all-languages.tar.gz tarball. [ replace the text in quote with latest module name and remove quotes]
+	- rm "phpMyAdmin-latest-all-languages.tar.gz"
+
+(Optional) If the MySQL server is not running, start it now.
+	- sudo systemctl start mariadb
+
+Copy content of config.sample.inc.php file and create a file named config.inc.php and paste content into it
+	- cp file_name new_file_name
+
+
+-----------
+Note
+-----------
+Start and Stop mariadb-server
+	- sudo systemctl start mariadb
+	- sudo systemctl stop mariadb
+
+Restart Apache
+	- sudo systemctl restart httpd
+
+

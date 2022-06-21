@@ -1,0 +1,23 @@
+Udate your software packages
+	- sudo yum update -y
+
+Amazon Linux Extras repositories to get the latest versions of the LAMP MariaDB and PHP packages for Amazon Linux 2.
+	- sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+Now that your instance is current, you can install the Apache web server, MariaDB, and PHP software packages.
+Use the yum install command to install multiple software packages and all related dependencies at the same time.
+	- sudo yum install -y httpd mariadb-server
+
+You can view the current versions of these packages using the following command:
+	- yum info package_name
+
+Start the Apache web server.
+	- sudo systemctl start httpd
+
+Use the systemctl command to configure the Apache web server to start at each system boot.
+	- sudo systemctl enable httpd
+
+You can verify that httpd is on by running the following command:
+	- sudo systemctl is-enabled httpd
+
+

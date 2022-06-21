@@ -1,24 +1,10 @@
 1. Add 'A' Record in your DNS Management
 2. Point your domain to your vps server
 
-3. Download and enable wsgi
-	- sudo apt-get install libapache2-mod-wsgi-py3
-	- sudo a2enmod wsgi
-
-4. Create init.py
-	- sudo nano /var/www/yoursite.com/yoursite.com/__init__.py
-	- Put this code in __init__.py
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-	return "Hello, world!"
-
-5. Create .wsgi file in /var/www/yoursite/yoursite.wsgi
+3. Create .wsgi file in /var/www/yoursite/yoursite.wsgi
 	- sudo nano yoursitename.wsgi
 	- Enter this code in .wsgi file
-
+------------------------[ Replace sitename with your sitename ]
 #!/usr/bin/python
 import sys 
 import logging 
@@ -27,17 +13,35 @@ sys.path.insert(0,"/var/www/yoursite/")
 
 from yoursite import app as application 
 application.secret_key = 'secret-key'
+------------------------
 
-4 - Creating Directories for sites
+4. Download and enable wsgi
+	- sudo apt-get install libapache2-mod-wsgi-py3
+	- sudo a2enmod wsgi
+
+5. Create init.py
+	- sudo nano /var/www/yoursite.com/yoursite.com/__init__.py
+	- Put this code in __init__.py
+------------[ Replace sitename with your sitename ]
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+	return "Hello, world!"
+------------
+
+6. - Creating Directories for sites
 	- sudo mkdir -p /var/www/yoursite.com/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
 
-5 - Transfer the site contents
+7. - Transfer the site contents
 
-6 - Creating the VirtualHost files
+8. - Creating the VirtualHost files
 	-  sudo vim /etc/apache2/sites-available/yoursite.conf
 	- Enter this into .conf file
+----------------------
 <VirtualHost *:80> 
 	ServerName yourdomainname
 	ServerAdmin admin@mywebsite.com 
@@ -55,12 +59,12 @@ application.secret_key = 'secret-key'
 	LogLevel warn 
 	CustomLog ${APACHE_LOG_DIR}/access.log combined 
 </VirtualHost>
-
+----------------------
 	- replace flaskapp with your app name
 	- Enter ServerAlias www.yoursite.com if you have domain name
 
 
-8 - Enable the VirtualHosts
+9. - Enable the VirtualHosts
 	- cd /etc/apache2/sites-available/
 	- sudo a2ensite soplaptops
 	- sudo service apache2 restart

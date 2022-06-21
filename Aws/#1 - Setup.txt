@@ -1,0 +1,8 @@
+1. Create Key-pair in your ec2 instance
+	- .pem or .ppk file will be downloaded on your computer
+	- keep this file safe
+
+2. Create Security group
+	- Add http, https, and ssh ports in your security groups
+
+3. Install Backend Stack in your ec2 instance

@@ -1,0 +1,8 @@
+Create a PHP file in the Apache document root.
+	- echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+
+See in your web browser
+	- 184.72.120.223/phpinfo.php
+
+Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.
+	- rm /var/www/html/phpinfo.php
