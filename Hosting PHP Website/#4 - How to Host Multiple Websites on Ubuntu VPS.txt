@@ -2,28 +2,27 @@
 2. Point your domain to your vps server
 
 3. - Creating Directories for sites
-	- sudo mkdir -p /var/www/yoursite.com/
+	- sudo mkdir -p /var/www/quotesoceans/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
 
 4. - Transfer the site contents
 
 5. - Creating the VirtualHost files
-	-  sudo nano /etc/apache2/sites-available/yoursite.conf
+	-  sudo nano /etc/apache2/sites-available/quotesoceans.conf
 	- Enter this into .conf file
 ----------------------
- <VirtualHost *:80>
-    ServerName your_domain_name
-    DocumentRoot "/var/www/yoursite"
-    ServerAlias quickstart.com
-    <Directory "/var/www/yoursite">
-        AllowOverride All
-        Require all granted
-     </Directory>
+<VirtualHost *:80>
+    ServerName quotesoceans.com
+    ServerAlias www.quotesoceans.com
+    ServerAdmin development1270@gmail.com
+    DocumentRoot /var/www/quotesoceans
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ----------------------
 
 6. - Enable the VirtualHosts
 	- cd /etc/apache2/sites-available/
-	- sudo a2ensite yoursite
+	- sudo a2ensite quotesoceans
 	- sudo service apache2 restart
