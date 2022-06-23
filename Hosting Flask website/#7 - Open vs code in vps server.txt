@@ -1,3 +1,6 @@
-Download and Install
-	- Remote SSH extension in your vs code
-	- Enter username and password to login your server
+SSH in server using vs code
+
+Host host-name
+  HostName host-ip
+  User host-user
+  IdentityFile path-of-.pem-file

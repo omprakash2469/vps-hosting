@@ -1,0 +1,3 @@
+Download and Install
+	- Remote SSH extension in your vs code
+	- Enter username and password to login your server

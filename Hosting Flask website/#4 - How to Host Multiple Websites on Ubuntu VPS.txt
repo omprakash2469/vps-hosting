@@ -20,7 +20,7 @@ application.secret_key = 'secret-key'
 	- sudo a2enmod wsgi
 
 5. Create init.py
-	- sudo nano /var/www/yoursite.com/yoursite.com/__init__.py
+	- sudo nano /var/www/soplaptops/soplaptops/__init__.py
 	- Put this code in __init__.py
 ------------[ Replace sitename with your sitename ]
 from flask import Flask
@@ -39,19 +39,19 @@ def hello_world():
 7. - Transfer the site contents
 
 8. - Creating the VirtualHost files
-	-  sudo vim /etc/apache2/sites-available/yoursite.conf
+	-  sudo nano /etc/apache2/sites-available/soplaptops.conf
 	- Enter this into .conf file
 ----------------------
 <VirtualHost *:80> 
-	ServerName yourdomainname
-	ServerAdmin admin@mywebsite.com 
-	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi 
-	<Directory /var/www/FlaskApp/FlaskApp/> 
+	ServerName 54.152.182.44
+	ServerAdmin development1270@gmail.com 
+	WSGIScriptAlias / /var/www/soplaptops/soplaptops.wsgi 
+	<Directory /var/www/soplaptops/soplaptops/> 
 		Order allow,deny
 		 Allow from all 
 	</Directory> 
-	Alias /static /var/www/FlaskApp/FlaskApp/static 
-	<Directory /var/www/FlaskApp/FlaskApp/static/> 
+	Alias /static /var/www/soplaptops/soplaptops/static 
+	<Directory /var/www/soplaptops/soplaptops/static/> 
 		Order allow,deny 
 		Allow from all 
 	</Directory> 

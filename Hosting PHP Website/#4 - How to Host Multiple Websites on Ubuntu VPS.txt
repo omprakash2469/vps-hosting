@@ -1,0 +1,29 @@
+1. Add 'A' Record in your DNS Management
+2. Point your domain to your vps server
+
+3. - Creating Directories for sites
+	- sudo mkdir -p /var/www/yoursite.com/
+	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
+	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
+
+4. - Transfer the site contents
+
+5. - Creating the VirtualHost files
+	-  sudo nano /etc/apache2/sites-available/yoursite.conf
+	- Enter this into .conf file
+----------------------
+ <VirtualHost *:80>
+    ServerName your_domain_name
+    DocumentRoot "/var/www/yoursite"
+    ServerAlias quickstart.com
+    <Directory "/var/www/yoursite">
+        AllowOverride All
+        Require all granted
+     </Directory>
+</VirtualHost>
+----------------------
+
+6. - Enable the VirtualHosts
+	- cd /etc/apache2/sites-available/
+	- sudo a2ensite yoursite
+	- sudo service apache2 restart

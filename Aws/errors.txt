@@ -1,0 +1,6 @@
+Internal Server Error
+Error log file path for apache2
+	- sudo nano /var/log/apache2
+
+If you get permissions error
+	- sudo pip3 install Flask
