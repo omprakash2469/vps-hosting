@@ -1,18 +1,24 @@
 1. Add 'A' Record in your DNS Management
 2. Point your domain to your vps server
 
+6. - Creating Directories for sites
+	- sudo mkdir /var/www/soplaptops/
+	- sudo mkdir /var/www/soplaptops/soplaptops/
+	- sudo mkdir /var/www/soplaptops/soplaptops/static
+
+
 3. Create .wsgi file in /var/www/yoursite/yoursite.wsgi
 	- sudo nano yoursitename.wsgi
 	- Enter this code in .wsgi file
 ------------------------[ Replace sitename with your sitename ]
-#!/usr/bin/python
+#!/usr/bin/python3
 import sys 
 import logging 
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/var/www/yoursite/")
+sys.path.insert(0,"/var/www/soplaptops/")
 
-from yoursite import app as application 
-application.secret_key = 'secret-key'
+from soplaptops import app as application 
+application.secret_key = 'sop-secret-key'
 ------------------------
 
 4. Download and enable wsgi
@@ -31,11 +37,6 @@ def hello_world():
 	return "Hello, world!"
 ------------
 
-6. - Creating Directories for sites
-	- sudo mkdir -p /var/www/yoursite.com/
-	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
-	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
-
 7. - Transfer the site contents
 
 8. - Creating the VirtualHost files
@@ -43,7 +44,7 @@ def hello_world():
 	- Enter this into .conf file
 ----------------------
 <VirtualHost *:80> 
-	ServerName 54.152.182.44
+	ServerName ec2-13-233-162-113.ap-south-1.compute.amazonaws.com
 	ServerAdmin development1270@gmail.com 
 	WSGIScriptAlias / /var/www/soplaptops/soplaptops.wsgi 
 	<Directory /var/www/soplaptops/soplaptops/> 
