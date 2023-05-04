@@ -1,0 +1,14 @@
+Run these commands for the following errors
+
+1. Failed to restart a high performing web server and reverse proxy
+	- sudo rm /etc/nginx/sites-enabled/default
+	- sudo service nginx restart
+
+2. Other flask packages error
+	- sudo apt install python3-dev build-essential
+	- sudo apt install libssl1.1
+	- sudo apt install libssl1.1=1.1.1f-1ubuntu2
+	- sudo apt install libssl-dev
+	- sudo apt install libmysqlclient-dev
+	- pip3 install mysqlclient
+	- sudo apt-get install mysql-server

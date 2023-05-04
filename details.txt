@@ -1,0 +1,36 @@
+Portofolio.com
+ssh -i "portfolio-pair.pem" ubuntu@ec2-3-110-215-190.ap-south-1.compute.amazonaws.com
+3.110.215.190
+
+Tech Blog
+13.233.85.22
+ssh -i "portfolio-pair.pem" admin@ec2-13-233-85-22.ap-south-1.compute.amazonaws.com
+
+Quotesoceans
+3.111.197.87
+ssh -i "portfolio-pair.pem" ubuntu@ec2-3-111-197-87.ap-south-1.compute.amazonaws.com
+
+cd /etc/systemd/system/
+sudo systemctl start quotesoceans
+sudo systemctl enable quotesoceans
+sudo systemctl status quotesoceans
+sudo systemctl stop quotesoceans
+sudo systemctl disable quotesoceans
+sudo systemctl daemon-reload
+
+sudo chmod -R 775 /home/ubuntu/quotesoceans/
+sudo chown -R ubuntu:www-data /home/ubuntu/quotesoceans/
+
+sudo nano /etc/nginx/sites-available/quotesoceans
+
+server {
+    listen 80;
+    server_name 3.111.197.87 www.3.111.197.87;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/quotesoceans/quotesoceans.sock;
+    }
+}
+
+sudo certbot --nginx -d quotesoceans.com -d www.quotesoceans.com

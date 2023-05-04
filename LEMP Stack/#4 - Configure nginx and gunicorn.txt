@@ -1,0 +1,84 @@
+1. Add 'A' Record in your DNS Management
+2. Point your domain to your vps server
+3. Allow all TCP ports in security groups before binding app to gunicorn
+
+6. - Creating Directories for sites
+	- sudo mkdir /var/www/soplaptops/
+	- sudo mkdir /var/www/soplaptops/static/
+
+CREATE SAMPLE APPLICATION - app.py in root folder
+------
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "<h1 style='color:blue'>Hello There!</h1>"
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
+------
+
+CREATE WSGI ENTRY POINT
+3. Create .wsgi file in /var/www/yoursite/wsgi.py
+	- sudo nano wsgi.py
+	- Enter this code in .wsgi file
+------------------------[ Replace sitename with your sitename ]
+from app import app
+
+if __name__ == "__main__":
+    app.run()
+------------------------
+
+CONFIGURING GUNICORN
+4. Test run gunicorn for your application
+	- gunicorn --bind 0.0.0.0:5000 wsgi:app
+
+5. Create yourprojectname.service file in /etc/systemd/system/myproject.service
+NOTE: Replace myprojectname with your actual project name
+-------
+[Unit]
+Description=Gunicorn instance to serve quotesoceans
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/quotesoceans
+Environment="PATH=/var/www/quotesoceans/quotesoceansenv/bin"
+ExecStart=/var/www/quotesoceans/quotesoceansenv/bin/gunicorn --workers 3 --bind unix:quotesoceans.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+------
+
+Now start the Gunicorn service you created:
+	- sudo systemctl start myproject
+Then enable it so that it starts at boot:
+	- sudo systemctl enable myproject
+sudo systemctl status myproject
+	- sudo systemctl status myproject
+
+Begin by creating a new server block configuration file in Nginx’s sites-available directory
+	- sudo nano /etc/nginx/sites-available/myproject
+
+-----
+server {
+    listen 80;
+    server_name your_domain www.your_domain;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
+    }
+}
+-----
+
+To enable the Nginx server block configuration you’ve created, link the file to the sites-enabled directory.
+	- sudo ln -s /etc/nginx/sites-available/quotesoceans /etc/nginx/sites-enabled
+
+With the link in that directory, you can test for syntax errors:
+	- sudo nginx -t
+
+If this returns without indicating any issues, restart the Nginx process to read the new configuration:
+	- sudo systemctl restart nginx

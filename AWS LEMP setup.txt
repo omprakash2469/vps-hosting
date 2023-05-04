@@ -1,0 +1,14 @@
+1. Create an instance with ubuntu server
+2. Enable firewall
+3. Install Nginx server and see if it is running properly
+4. Install python and virtualEnv
+5. Create your project directory in user home directory /home/user/yourproject
+6. Create a virtual environment with sudo previlage
+7. Create a sample myproject.py file in your project directory
+8. Allow port 5000 and run this sample python file
+9. Create wsgi entry point
+10. Configure gunicorn and test your app
+11. Deactivate your virtualenv
+12. Create myproject.service file in /etc/systemd/system/myproject.service
+13. Test if your .service file is running
+14. Configuring Nginx to Proxy Requests

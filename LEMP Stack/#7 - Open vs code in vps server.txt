@@ -1,0 +1,6 @@
+SSH in server using vs code
+
+Host host-name
+  HostName host-ip
+  User host-user
+  IdentityFile path-of-.pem-file

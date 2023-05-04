@@ -1,0 +1,107 @@
+Create non-root user if you are using linode or digital ocean
+AWS automatically creates non-root user: ubuntu
+
+Link to Flask Deployment
+https://www.codewithubuntu.com/blogpost/flask-app-deploy-using-gunicorn-nginx/
+
+Login into your ubuntu web server
+Update packages
+	- sudo apt update
+
+Install python, nginx
+	- sudo apt install python3-pip python3-dev nginx
+
+Intall virtual env
+	- sudo pip3 install virtualenv
+
+Creating a directory for our flask app
+	- mkdir quotesoceans && cd quotesoceans
+
+Create virtual environment
+	- virtualenv env
+
+Activate the virtual environment
+	- source env/bin/activate
+
+Install flask and gunicorn
+	- pip3 install flask gunicorn
+
+Creating sample project and wsgi entry point
+	- sudo nano app.py
+
+Paste the contents below to app.py file
+---
+from flask import Flask
+app = Flask(__name__)
+@app.route('/')
+def hello_world():
+    return "Hello World!"
+if __name__ == '__main__':
+    app.run(debug=False,host='0.0.0.0')
+---
+
+Create a file that will serve as the entry point
+	- sudo nano wsgi.py
+
+Copy content below to wsgi.py
+---
+from app import app
+
+if __name__ == "__main__":
+    app.run()
+---
+
+Deactivate your virtual environment
+	- deactivate
+
+Create a systemd service
+	- sudo nano /etc/systemd/system/app.service
+---
+[Unit]
+#  specifies metadata and dependencies
+Description=Gunicorn instance to serve myproject
+After=network.target
+# tells the init system to only start this after the networking target has been reached
+# We will give our regular user account ownership of the process since it owns all of the relevant files
+[Service]
+# Service specify the user and group under which our process will run.
+User=ubuntu
+# give group ownership to the www-data group so that Nginx can communicate easily with the Gunicorn processes.
+Group=www-data
+# We'll then map out the working directory and set the PATH environmental variable so that the init system knows where our the executables for the process are located (within our virtual environment).
+WorkingDirectory=/home/ubuntu/quotesoceans/
+Environment="PATH=/home/ubuntu/quotesoceans/env/bin"
+# We'll then specify the commanded to start the service
+ExecStart=/home/ubuntu/quotesoceans/env/bin/gunicorn --workers 3 --bind unix:app.sock -m 007 wsgi:app
+# This will tell systemd what to link this service to if we enable it to start at boot. We want this service to start when the regular multi-user system is up and running:
+[Install]
+WantedBy=multi-user.target
+---
+
+Activate this service
+	- sudo systemctl start app
+	- sudo systemctl enable app
+
+A file named app.sock will be automatically created.
+
+Create a file named app inside /etc/nginx/sites-available
+	- sudo nano /etc/nginx/sites-available/app
+
+Copy content in this file
+---
+server {
+listen 80;
+server_name 13.234.186.164;
+
+location / {
+  include proxy_params;
+  proxy_pass http://unix:/home/ubuntu/quotesoceans/app.sock;
+    }
+}                
+---
+
+Activate this configuration by executing this:
+	- sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled
+
+Restart your nginx server
+	- sudo systemctl restart nginx

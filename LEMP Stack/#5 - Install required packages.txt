@@ -1,0 +1,7 @@
+Install Flask and gunicorn
+	- pip3 install flask gunicorn
+	- sudo apt install gunicorn
+
+3. File Permissions
+set your user as the owner
+	- chown -R ubuntu:root /var/www/soplaptops/

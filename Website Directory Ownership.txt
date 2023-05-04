@@ -1,0 +1,22 @@
+1: set your user as the owner
+sudo chown -R ubuntu /var/www/my-website.com/
+
+2: set the web server as the group owner
+sudo chgrp -R www-data /var/www/my-website.com/
+
+3: 750 permissions for everything
+sudo chmod -R 750 /var/www/my-website.com/
+
+4: new files and folders inherit group ownership from the parent folder
+sudo chmod g+s /var/www/my-website.com/
+
+When the web server needs to write
+sudo chmod g+w /var/www/my-website.com/<writable-folder>
+
+
+sudo systemctl start bha
+sudo systemctl enable bha
+sudo systemctl disable bha
+sudo systemctl stop bha
+sudo systemctl status bha
+

@@ -1,0 +1,26 @@
+1. Linux - Any Linux based operating system
+
+2. Nginx Server
+	- sudo apt update
+	- sudo apt install nginx
+	- sudo ufw allow in "Nginx Full"
+	- sudo ufw status
+
+3. MySQL 
+	- sudo apt install mysql-server
+	- sudo apt install mysq-client
+	- sudo apt-get install libmysqlclient-dev
+	- sudo mysql
+	- exit
+
+4. Python 
+	- sudo apt update
+	- sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
+
+5. Creating python virtual environment
+	- sudo apt install python3-venv
+
+Create a virtual environment to store your Flask project’s Python requirements by entering the following:
+	- python3 -m venv sopenv
+Activate virtual environment
+	- source sopenv/bin/activate

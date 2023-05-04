@@ -2,21 +2,20 @@
 2. Point your domain to your vps server
 
 3. - Creating Directories for sites
-	- sudo mkdir -p /var/www/quotesoceans/
+	- sudo mkdir -p /var/www/radhejewellers/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/
 	- sudo mkdir -p /var/www/yoursite.com/yoursite.com/static
 
 4. - Transfer the site contents
 
 5. - Creating the VirtualHost files
-	-  sudo nano /etc/apache2/sites-available/quotesoceans.conf
+	-  sudo nano /etc/apache2/sites-available/radhejewellers.conf
 	- Enter this into .conf file
 ----------------------
 <VirtualHost *:80>
-    ServerName quotesoceans.com
-    ServerAlias www.quotesoceans.com
+    ServerName ec2-52-66-196-67.ap-south-1.compute.amazonaws.com
     ServerAdmin development1270@gmail.com
-    DocumentRoot /var/www/quotesoceans
+    DocumentRoot /var/www/radhejewellers
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
@@ -24,5 +23,8 @@
 
 6. - Enable the VirtualHosts
 	- cd /etc/apache2/sites-available/
-	- sudo a2ensite quotesoceans
+	- sudo a2ensite radhejewellers
 	- sudo service apache2 restart
+
+Error Handling
+- Sudo chown -R ubuntu /projectname

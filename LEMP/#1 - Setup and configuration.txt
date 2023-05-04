@@ -1,0 +1,32 @@
+1. Select a cloud hosting provider and create your server
+
+2. Point your domain name to the new server - Create an A record in your hosting provider’s DNS settings, pointing your domain name
+
+3: Install NGINX
+	- sudo apt-get update
+	- sudo apt-get install nginx
+	- sudo nano /etc/nginx/sites-available/radhejewellers
+
+4: Move your website’s static files to the server
+	- scp -r * root@198.199.103.100:/var/www/yourprojectname
+
+5. Create a file yourprojectname in the sites-available directory and add the following text to it:
+--------------------
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  root /var/www/radhejewellers;
+  index index.html;
+  server_name 15.206.67.84;
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
+
+--------------------
+6. ln -s <SOURCE_FILE> <DESTINATION_FILE>
+	- sudo ln -s /etc/nginx/sites-available/radhejewellers /etc/nginx/sites-enabled/radhejewellers
+	- sudo systemctl restart nginx
+
+/var/log/nginx/error.log
+sudo chown ubuntu:www-data -R /run/php

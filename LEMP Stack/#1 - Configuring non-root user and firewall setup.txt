@@ -1,0 +1,14 @@
+1. Create VPS server from your selected hosting provider
+
+2. Initial Login - enter these commands as a root user
+	- ssh root@your_server_ip
+	- adduser USERNAME
+	- usermod -aG sudo USERNAME
+
+3. Firewall Setup
+	- ufw allow OpenSSH
+	- ufw enable
+
+4. login as a user and verify
+	- sudo su
+	- exit

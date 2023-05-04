@@ -1,0 +1,12 @@
+1 - Install lets encrypt
+	- sudo apt install certbot python3-certbot-apache
+
+2 - Allow HTTPS through the firewall and configure apache2 virtual hosts
+	- sudo ufw allow 'Nginx Full'
+
+3 - Obtain an SSL certificate
+	- sudo certbot --apache
+
+4 - Test the auto-renewal process
+	- sudo systemctl status certbot.timer
+	- sudo certbot renew --dry-run

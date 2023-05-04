@@ -1,0 +1,13 @@
+1 - Configuring password access in MySQL 
+	- sudo mysql
+	- ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '!@#QuotesOceans123';
+	- SELECT user,authentication_string,plugin,host FROM mysql.user;
+	- sudo mysql -u root -p
+
+2 - Configuring a non-root user in MySQL
+	- CREATE USER 'quotes'@'localhost' IDENTIFIED WITH caching_sha2_password BY '%$%UserQuotes';
+	- GRANT ALL PRIVILEGES ON *.* TO 'quotes'@'localhost' WITH GRANT OPTION;
+	- exit
+
+
+QUOTE!&17
