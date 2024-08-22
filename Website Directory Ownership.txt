@@ -1,3 +1,9 @@
+sudo chown -R ubuntu /var/www/my-website.com/
+sudo chgrp -R www-data /var/www/my-website.com/
+sudo chmod -R 750 /var/www/my-website.com/
+sudo chmod g+s /var/www/my-website.com/
+
+
 1: set your user as the owner
 sudo chown -R ubuntu /var/www/my-website.com/
 
