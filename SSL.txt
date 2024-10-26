@@ -3,3 +3,9 @@ sudo certbot --nginx -d your_domain -d www.your_domain
 
 Expand Domain List
 sudo certbot --nginx --expand -d test.domain.com
+
+
+sudo certbot --nginx --expand -d api.svayurved.com -d svayurved.com -d www.svayurved.com
+
+sudo ln -s /etc/nginx/sites-available/svayurved /etc/nginx/sites-enabled
+
